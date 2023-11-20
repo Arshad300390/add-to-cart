@@ -85,7 +85,7 @@
         }
 
         .name {
-            width: 60%;
+            width: 50%;
         }
 
         th {
@@ -106,6 +106,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        #item-count-td {
+            border:none;
+            text-align: left;
+            padding-left: 10px;
         }
 
         .emp-btn button {
@@ -154,10 +160,10 @@
         </tbody>
         <tfoot>
             <tr>
-                <td class="text-right">Total:</td>
+                <td id="item-count-td" >Item count: <span id="itemCount"></span> </td>
                 <td></td>
-                <td id="itemCount" class="text-right" ></td>
-                <td id="totalAmount" class="text-right"></td>
+                <td class="text-right"> Total Quantity: <span id="totalItem"></span></td>
+                <td class="text-right"> Total Price: <span id="totalAmount"></span></td>
             </tr>
         </tfoot>
     </table>
@@ -167,7 +173,7 @@
     </div>
     </div>
     <script>
-        
+
         $(document).ready(function () {
             var product = [
                 { name: 'Guava', nameExtension: 'Guava.jpeg', price: '120kg' },
@@ -258,6 +264,7 @@
                     totalItem += quantity;
                 })
             }
+            $('#totalItem').text(totalItem);
             $('#cart-count').text(totalItem);
             $('#cartTableBody').html(cartRowHTML);
             $('#itemCount').text(itemCount);
@@ -269,17 +276,6 @@
                 showCartTable();
             }
         }
-        // let cartCount = 0;
-
-        // function add_to_cart() {
-        //     // Increment the cart count
-        //     cartCount++;
-
-        //     // Update the cart count in the UI
-        //     //document.getElementById("cart-count").innerText = cartCount;
-        //     document.getElementById("cart-count").innerText = cartCount;
-        //     console.log(cartCount);
-        // }
 
 
     </script>
