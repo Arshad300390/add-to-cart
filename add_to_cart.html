@@ -57,8 +57,8 @@
             margin-right: 50px;
             padding: 10px 10px;
         }
-        
-        .quantity-div input{
+
+        .quantity-div input {
             width: 100px;
             margin: 10px;
         }
@@ -77,31 +77,38 @@
             width: 300px;
             margin: 10px;
         }
-        table{
+
+        table {
             width: 100%;
             border: 1px solid black;
             text-align: center;
         }
-        .name{
+
+        .name {
             width: 60%;
         }
-        th{
+
+        th {
             background-color: antiquewhite;
             border: 1px solid black;
         }
-        td{
+
+        td {
             border: 1px dotted black;
         }
-        tfoot{
+
+        tfoot {
             font-weight: bolder;
             background-color: antiquewhite;
         }
-        div.row{
+
+        div.row {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .emp-btn button{
+
+        .emp-btn button {
             float: right;
             padding: 10 20px;
             margin: 5px;
@@ -129,9 +136,9 @@
         <li><a href="">About us</a></li>
         <li class="cart"><a href=""><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a></li>
     </ul>
-   <div class="emp-btn"> 
-        <button type="button" name="" id="" onclick="emptyCart()" class="btn btn-secondary" >Empty Cart</button>
-        </div>
+    <div class="emp-btn">
+        <button type="button" name="" id="" onclick="emptyCart()" class="btn btn-secondary">Empty Cart</button>
+    </div>
     <!-- cart item -->
     <table>
         <thead>
@@ -148,7 +155,8 @@
         <tfoot>
             <tr>
                 <td class="text-right">Total:</td>
-                <td id="itemCount" class="text-right" colspan="2"></td>
+                <td></td>
+                <td id="itemCount" class="text-right" ></td>
                 <td id="totalAmount" class="text-right"></td>
             </tr>
         </tfoot>
@@ -156,60 +164,61 @@
     <!-- product item gallery -->
     <div class="row">
 
-        </div>
+    </div>
     </div>
     <script>
-        function addToCart(element){
-            var parent = $(element).closest('div.product-item')
-            var name = $(parent).find('.product-name').text();
-            var price = $(parent).find('.product-price').text();
-            var quantity = $(parent).find('.product-quantity').val();
-             var cartItem = {
-                name: name,
-                price: price,
-                quantity: quantity
-             }
-             var cartItemJSON = JSON.stringify(cartItem);
-
-             cartArray = new Array();
-             if(sessionStorage.getItem('shopping-cart')){
-                cartArray = JSON.parse(sessionStorage.getItem('shopping-cart'));
-                console.log(cartArray);
-             }
-             cartArray.push(cartItemJSON);
-             
-             var cartJSON = JSON.stringify(cartArray);
-             sessionStorage.setItem('shopping-cart', cartJSON);
-             
-
-             showCartTable();
-        }
+        
         $(document).ready(function () {
             var product = [
-    { name: 'Guava', nameExtension: 'Guava.jpeg', price: '120kg' },
-    { name: 'Orange', nameExtension: 'Orange.jpeg', price: '100kg' },
-    { name: 'Apple', nameExtension: 'Apple.jpeg', price: '150kg' },
-    { name: 'Banana', nameExtension: 'Banana.jpeg', price: '80kg' },
-    { name: 'Mango', nameExtension: 'Mango.jpeg', price: '130kg' },
-    { name: 'Strawberry', nameExtension: 'Strawberry.jpeg', price: '200kg' },
-    { name: 'Pineapple', nameExtension: 'Pineapple.jpeg', price: '180kg' },
-    { name: 'Kiwi', nameExtension: 'Kiwi.jpeg', price: '250kg' },
-];
+                { name: 'Guava', nameExtension: 'Guava.jpeg', price: '120kg' },
+                { name: 'Orange', nameExtension: 'Orange.jpeg', price: '100kg' },
+                { name: 'Apple', nameExtension: 'Apple.jpeg', price: '150kg' },
+                { name: 'Banana', nameExtension: 'Banana.jpeg', price: '80kg' },
+                { name: 'Mango', nameExtension: 'Mango.jpeg', price: '130kg' },
+                { name: 'Strawberry', nameExtension: 'Strawberry.jpeg', price: '200kg' },
+                { name: 'Pineapple', nameExtension: 'Pineapple.jpeg', price: '180kg' },
+                { name: 'Kiwi', nameExtension: 'Kiwi.jpeg', price: '250kg' },
+            ];
 
             showGallery(product);
             showCartTable();
         });
+        function addToCart(element) {
+            var parent = $(element).closest('div.product-item')
+            var name = $(parent).find('.product-name').text();
+            var price = $(parent).find('.product-price').text();
+            var quantity = $(parent).find('.product-quantity').val();
+            var cartItem = {
+                name: name,
+                price: price,
+                quantity: quantity
+            }
+            var cartItemJSON = JSON.stringify(cartItem);
+
+            cartArray = new Array();
+            if (sessionStorage.getItem('shopping-cart')) {
+                cartArray = JSON.parse(sessionStorage.getItem('shopping-cart'));
+                console.log(cartArray);
+            }
+            cartArray.push(cartItemJSON);
+
+            var cartJSON = JSON.stringify(cartArray);
+            sessionStorage.setItem('shopping-cart', cartJSON);
+
+
+            showCartTable();
+        }
         function showGallery(product) {
             var pHtml = '';
             product.forEach(function (item) {
                 pHtml +=
                     '<div class=" product-item card card_style">' +
-                    '<img class="card-img-top" id="img" height="200p" src="images/'+item.nameExtension+'" alt="guava">' +
+                    '<img class="card-img-top" id="img" height="200p" src="images/' + item.nameExtension + '" alt="guava">' +
                     '<div class="card-body">' +
                     ' <h4 class="product-name card-title">' + item.name + '</h4>' +
                     '<p class="product-price card-text">' + item.price + '</p>' +
-                    '<div class="quantity-div">quantity: <input class="product-quantity" min="1" value="1" type="number"></div>'+
-                    '<div class="d-grid gap-2">' + 
+                    '<div class="quantity-div">quantity: <input class="product-quantity" min="1" value="1" type="number"></div>' +
+                    '<div class="d-grid gap-2">' +
                     '<button type="button" name="" id="" class="btn btn-secondary" onclick="addToCart(this)">Add To Cart</button>' +
                     '</div>' +
                     ' </div>' +
@@ -221,38 +230,41 @@
         function showCartTable() {
             var cartRowHTML = '';
             var itemCount = 0;
+            var totalItem = 0;
             var grandTotal = 0;
 
             var price = 0;
             var quantity = 0;
             var subTotal = 0;
 
-            if(sessionStorage.getItem('shopping-cart')){
+            if (sessionStorage.getItem('shopping-cart')) {
                 var shoppingCart = JSON.parse(sessionStorage.getItem('shopping-cart'));
                 itemCount = shoppingCart.length;
 
-                shoppingCart.forEach(function(item){
-                    var cartItem =  JSON.parse(item);
+                shoppingCart.forEach(function (item) {
+                    var cartItem = JSON.parse(item);
                     price = parseFloat(cartItem.price);
                     quantity = parseInt(cartItem.quantity);
                     subTotal = price * quantity
 
                     cartRowHTML += "<tr>" +
-				"<td style='text-align:left; padding-left:10px'>" + cartItem.name + "</td>" +
-				"<td class='text-right'>$" + price.toFixed(2) + "</td>" +
-				"<td class='text-right'>" + quantity + "</td>" +
-				"<td class='text-right'>$" + subTotal.toFixed(2) + "</td>" +
-				"</tr>";
+                        "<td style='text-align:left; padding-left:10px'>" + cartItem.name + "</td>" +
+                        "<td class='text-right'>$" + price.toFixed(2) + "</td>" +
+                        "<td class='text-right'>" + quantity + "</td>" +
+                        "<td class='text-right'>$" + subTotal.toFixed(2) + "</td>" +
+                        "</tr>";
 
-                grandTotal += subTotal;
+                    grandTotal += subTotal;
+                    totalItem += quantity;
                 })
             }
+            $('#cart-count').text(totalItem);
             $('#cartTableBody').html(cartRowHTML);
-            $('#cartCount').text(itemCount);
+            $('#itemCount').text(itemCount);
             $('#totalAmount').text("$" + grandTotal.toFixed(2));
         }
-        function emptyCart(){
-            if(sessionStorage.getItem('shopping-cart')){
+        function emptyCart() {
+            if (sessionStorage.getItem('shopping-cart')) {
                 sessionStorage.removeItem('shopping-cart');
                 showCartTable();
             }
